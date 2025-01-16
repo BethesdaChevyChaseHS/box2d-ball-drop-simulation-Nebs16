@@ -36,16 +36,16 @@ public class Main extends ApplicationAdapter {
     private float HEIGHT = 6;
 
     private final int ROW_NUM = 15;
-    private final int BALLS_IN_FIRST_ROW = 3;
+    private final int BALLS_IN_FIRST_ROW = 1;
     private final float PEG_AREA_HEIGHT = HEIGHT * .8f;
     private final float PEG_AREA_START = HEIGHT * .9f;
     private final float PEG_CENTER_X = WIDTH / 2;
     private final float TOTAL_WIDTH = WIDTH * .7f;
-    private final float SPACING_X = TOTAL_WIDTH / (ROW_NUM - 1 + BALLS_IN_FIRST_ROW - 1);
+    private final float SPACING_X = TOTAL_WIDTH / (ROW_NUM - 1 + BALLS_IN_FIRST_ROW - 3);
     private final float SPACING_Y = PEG_AREA_HEIGHT / (ROW_NUM - 1);
     private final float BALL_SIZE = SPACING_Y/5;
-    private final float BOUNCINESS = .05f;
-    private final float GRAVITY = 10f;
+    private final float BOUNCINESS = .10f;
+    private final float GRAVITY = 1.5f;
 
     public void create() {
         world = new World(new Vector2(0, -GRAVITY), true);
@@ -140,6 +140,17 @@ public class Main extends ApplicationAdapter {
         //sample addPeg call
         addPeg(PEG_CENTER_X, PEG_AREA_START, BALL_SIZE);
 
+        for (int i = 0; i < ROW_NUM; i++) {
+            float y = PEG_AREA_START - i * SPACING_Y;
+            int pegsInARow = BALLS_IN_FIRST_ROW + i;
+            float startX = PEG_CENTER_X - (pegsInARow - 1) * SPACING_X / 2;
+
+            for (int j = 0; j < pegsInARow; j++) {
+                float x = startX  + j * SPACING_X;
+
+                addPeg(x, y, BALL_SIZE);
+            }
+        }
         // PLEASE USE LOOPS, DON'T MANUALLY PLACE EACH PEG
     }
 
